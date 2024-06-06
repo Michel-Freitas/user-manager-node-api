@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum EUserStatus {
+  ACTIVE
+  REMOVED
+}
+
+enum EUserRole {
+  ADMIN
+  COMMON
+}
+
+model AddressModel {
+  id           Int       @id @default(autoincrement())
+  street       String
+  number       String
+  city         String
+  state        String
+  neighborhood String
+  zipCode      String    @map("zip_code")
+  userId       Int       @unique @map("user_id")
+  user         UserModel @relation(fields: [userId], references: [id], map: "FK_Address_User")
+
+  @@map("tbl_address")
+}
+
+model UserModel {
+  id        Int           @id @default(autoincrement())
+  name      String
+  password  String
+  cpf       String        @unique
+  dateBirth String        @map("date_birth")
+  role      EUserRole     @default(COMMON)
+  status    EUserStatus   @default(ACTIVE)
+  address   AddressModel?
+
+  @@map("tbl_user")
+}

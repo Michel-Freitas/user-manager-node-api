@@ -37,11 +37,19 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async delete(id: number): Promise<void> {
-    throw new Error("Method not implemented.");
+  async update(data: TUpdateUser): Promise<void> {
+    await prisma.userModel.update({
+      where: { id: data.id },
+      data: {
+        ...data,
+      },
+    });
   }
 
-  async update(id: number, data: TUpdateUser): Promise<void> {
-    throw new Error("Method not implemented.");
+  async getByCpf(cpf: string): Promise<UserModel | null> {
+    return await prisma.userModel.findFirst({
+      where: { cpf },
+      include: { address: true },
+    });
   }
 }

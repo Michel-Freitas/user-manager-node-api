@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import routes from "./routes";
 import { prisma } from "./setup";
 import { ErrorMiddleware } from "./infra/middleware/ErrorMiddleware";
+import { ErrorhandlerGlobal } from "./infra/handler/ErrorHandlerGlobal";
 
 const server = express();
 dotenv.config();
@@ -10,6 +11,7 @@ const PORT = process.env.PORT;
 
 const main = async () => {
   server.use(express.json());
+  ErrorhandlerGlobal.init();
 
   server.use("/api/v1", routes);
   server.all("*", (req: Request, res: Response) => {

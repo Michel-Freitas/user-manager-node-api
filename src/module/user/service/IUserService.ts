@@ -6,4 +6,5 @@ export interface IUserService {
   create(data: TCreateUser): Promise<void>;
   delete(id: number): Promise<void>;
   update(id: number, data: TUpdateUser): Promise<void>;
+  getByCpf(cpf: string): Promise<TUserDetails>;
 }

@@ -5,6 +5,6 @@ export interface IUserRepository {
   create(data: TCreateUser): Promise<void>;
   getAll(): Promise<UserModel[]>;
   getById(id: number): Promise<UserModel | null>;
-  delete(id: number): Promise<void>;
-  update(id: number, data: TUpdateUser): Promise<void>;
+  update(data: TUpdateUser): Promise<void>;
+  getByCpf(cpf: string): Promise<UserModel | null>;
 }

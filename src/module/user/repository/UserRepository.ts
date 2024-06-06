@@ -1,5 +1,5 @@
 import { UserModel } from "@prisma/client";
-import { TCreateUser } from "../type";
+import { TCreateUser, TUpdateUser } from "../type";
 import { IUserRepository } from "./IUserRepository";
 import { prisma } from "../../../setup";
 
@@ -35,5 +35,13 @@ export class UserRepository implements IUserRepository {
       where: { id },
       include: { address: true },
     });
+  }
+
+  async delete(id: number): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  async update(id: number, data: TUpdateUser): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 }

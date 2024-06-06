@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import routes from "./routes";
 import { prisma } from "./setup";
+import { ErrorMiddleware } from "./infra/middleware/ErrorMiddleware";
 
 const server = express();
 dotenv.config();
@@ -15,6 +16,7 @@ const main = async () => {
     res.status(404).json({ error: `Route ${req.originalUrl} not found` });
   });
 
+  server.use(ErrorMiddleware.handleError());
   server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });

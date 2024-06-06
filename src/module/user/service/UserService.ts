@@ -1,5 +1,6 @@
+import { BaseError } from "../../../shared/dto/BaseError";
 import { IUserRepository } from "../repository/IUserRepository";
-import { TCreateUser, TUser, TUserDetails } from "../type";
+import { TCreateUser, TUpdateUser, TUser, TUserDetails } from "../type";
 import { IUserService } from "./IUserService";
 
 export class UserService implements IUserService {
@@ -16,11 +17,19 @@ export class UserService implements IUserService {
   async getById(id: number): Promise<TUserDetails> {
     const result = await this.userRepository.getById(id);
     if (result === null) {
-      throw new Error("Usuário não encontrado.");
+      throw new BaseError("Usuário não encontrado.", 404);
     }
 
     delete result.password;
 
     return result;
+  }
+
+  async delete(id: number): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  async update(id: number, data: TUpdateUser): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 }

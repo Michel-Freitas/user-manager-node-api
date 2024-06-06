@@ -7,6 +7,8 @@ export type TCreateUser = Omit<UserModel, "id" | "status"> & {
   address: TCreateAddress;
 };
 
+export type TUpdateUser = Omit<UserModel, "status" | "password" | "cpf">;
+
 export type TUserDetails = Omit<TUser, "password"> & {
   address: TAddress;
 };

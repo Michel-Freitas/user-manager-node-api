@@ -1,10 +1,11 @@
 import express from "express";
 import { userController } from "../module/user";
+import { RouterHandler } from "../infra/handler/RouterHandler";
 
 const userRoutes = express.Router();
 
-userRoutes.post("/", userController.create);
-userRoutes.get("/", userController.listAll);
-userRoutes.get("/:id", userController.findById);
+userRoutes.post("/", RouterHandler.wrap(userController.create));
+userRoutes.get("/", RouterHandler.wrap(userController.listAll));
+userRoutes.get("/:id", RouterHandler.wrap(userController.findById));
 
 export default userRoutes;

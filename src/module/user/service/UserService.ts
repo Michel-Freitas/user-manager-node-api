@@ -1,5 +1,5 @@
 import { IUserRepository } from "../repository/IUserRepository";
-import { TCreateUser, TUser } from "../type";
+import { TCreateUser, TUser, TUserDetails } from "../type";
 import { IUserService } from "./IUserService";
 
 export class UserService implements IUserService {
@@ -9,11 +9,18 @@ export class UserService implements IUserService {
     await this.userRepository.create(data);
   }
 
-  getAll(): Promise<TUser[]> {
-    throw new Error("Method not implemented.");
+  async getAll(): Promise<TUser[]> {
+    return this.userRepository.getAll();
   }
 
-  getById(id: string): Promise<TUser> {
-    throw new Error("Method not implemented.");
+  async getById(id: number): Promise<TUserDetails> {
+    const result = await this.userRepository.getById(id);
+    if (result === null) {
+      throw new Error("Usuário não encontrado.");
+    }
+
+    delete result.password;
+
+    return result;
   }
 }

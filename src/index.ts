@@ -11,7 +11,6 @@ const main = async () => {
   server.use(express.json());
 
   server.use("/api/v1", routes);
-
   server.all("*", (req: Request, res: Response) => {
     res.status(404).json({ error: `Route ${req.originalUrl} not found` });
   });

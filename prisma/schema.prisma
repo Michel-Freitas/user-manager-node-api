@@ -38,14 +38,14 @@ model AddressModel {
 }
 
 model UserModel {
-  id           Int           @id @default(autoincrement())
-  name         String
-  password     String
-  cpf          String        @unique
-  dateBirth    String        @map("date_birth")
-  role         EUserRole     @default(COMMON)
-  status       EUserStatus   @default(ACTIVE)
-  AddressModel AddressModel?
+  id        Int           @id @default(autoincrement())
+  name      String
+  password  String
+  cpf       String        @unique
+  dateBirth String        @map("date_birth")
+  role      EUserRole     @default(COMMON)
+  status    EUserStatus   @default(ACTIVE)
+  address   AddressModel?
 
   @@map("tbl_user")
 }

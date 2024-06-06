@@ -12,7 +12,7 @@ export class UserRepository implements IUserRepository {
         password: data.password,
         dateBirth: data.dateBirth,
         role: data.role,
-        AddressModel: {
+        address: {
           create: {
             street: data.address.street,
             number: data.address.number,
@@ -26,11 +26,14 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  getAll(): Promise<UserModel[]> {
-    throw new Error("Method not implemented.");
+  async getAll(): Promise<UserModel[]> {
+    return await prisma.userModel.findMany();
   }
 
-  getById(id: string): Promise<UserModel | null> {
-    throw new Error("Method not implemented.");
+  async getById(id: number): Promise<UserModel | null> {
+    return await prisma.userModel.findFirst({
+      where: { id },
+      include: { address: true },
+    });
   }
 }
